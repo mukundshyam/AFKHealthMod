@@ -9,9 +9,10 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.mukundshyam.afkhealth.AFKHealth;
+import net.mukundshyam.afkhealth.item.custom.ActivatorItem;
 
 public class ModItems {
-    public static final Item Activator = registerItem("activator", new Item(new FabricItemSettings()));
+    public static final Item Activator = registerItem("activator", new ActivatorItem(new FabricItemSettings()));
 
     private static void addItemsToIngredientItemGroup(FabricItemGroupEntries entries) {
         entries.add(Activator);
