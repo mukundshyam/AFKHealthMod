@@ -1,25 +1,21 @@
 package net.mukundshyam.afkhealth.item.custom;
 
-import com.sun.jna.platform.unix.solaris.Kstat2StatusException;
-import net.minecraft.block.*;
+
 import net.minecraft.block.entity.BarrelBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.EnderChestBlockEntity;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.DoubleInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import org.apache.commons.lang3.ObjectUtils;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class ActivatorItem extends Item{
 
@@ -35,22 +31,59 @@ public class ActivatorItem extends Item{
             BlockEntity type = context.getWorld().getBlockEntity(positionClicked);
             assert player != null;
             if (type instanceof ChestBlockEntity) {
-                int total = 0;
+                int total1 = 0;
+                final int[] total2 = {0};
                 for (int num = 0; num <= 26; num++) {
                     int count = getChestStacks((ChestBlockEntity) type, num);
-                    total = total + count;
+                    total1 = total1 + count;
                 }
-                String totalVal = String.valueOf(total);
-                player.sendMessage(Text.literal(totalVal + " items") , true);
+                final String[] totalOne = {String.valueOf(total1)};
+                player.sendMessage(Text.literal("Counting... Total items = " + totalOne[0]), true);
+                Timer timer = new Timer();
+                int finalTotal = total1;
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        for (int num = 0; num <= 26; num++) {
+                            int count = getChestStacks((ChestBlockEntity) type, num);
+                            total2[0] = total2[0] + count;
+                        }
+                        String totalTwo = String.valueOf(total2[0]);
+                        player.sendMessage(Text.literal("Counting... Total items = " + totalTwo));
+                        int speed = (total2[0] - finalTotal)* (60/5);
+                        String spd  = String.valueOf(speed);
+                        player.sendMessage(Text.literal(spd + " items per hour") , true);
+                    }
+
+                }, 30000);
             }
             else if (type instanceof BarrelBlockEntity) {
-                int total = 0;
+                int total1 = 0;
+                final int[] total2 = {0};
                 for (int num = 0; num <= 26; num++) {
                     int count = getBarrelStacks((BarrelBlockEntity) type, num);
-                    total = total + count;
+                    total1 = total1 + count;
                 }
-                String totalVal = String.valueOf(total);
-                player.sendMessage(Text.literal(totalVal + " items") , true);
+                final String[] totalOne = {String.valueOf(total1)};
+                player.sendMessage(Text.literal("Counting... Total items = " + totalOne[0]), true);
+                Timer timer = new Timer();
+                int finalTotal = total1;
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        for (int num = 0; num <= 26; num++) {
+                            int count = getBarrelStacks((BarrelBlockEntity) type, num);
+                            total2[0] = total2[0] + count;
+                        }
+                        String totalTwo = String.valueOf(total2[0]);
+                        player.sendMessage(Text.literal("Counting... Total items = " + totalTwo));
+                        int speed = (total2[0] - finalTotal)* (60/5);
+                        String spd  = String.valueOf(speed);
+                        player.sendMessage(Text.literal(spd + " items per hour") , true);
+                    }
+
+                }, 300000);
+
             }
             else if (type instanceof EnderChestBlockEntity) {
                 player.sendMessage(Text.literal("Doesn't work with ender chests."), true);
