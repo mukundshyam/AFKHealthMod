@@ -1,4 +1,5 @@
 {
   "item.afk-health.activator": "Activator",
-  "sounds.afk-health.low_health": "Alert sound"
+  "sounds.afk-health.low_health": "Alert sound",
+  "tooltip.afkhealth.activator.tooltip": "Use on block when AFK. Plays alert when health drops below full."
 }
