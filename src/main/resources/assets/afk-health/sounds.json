@@ -1,0 +1,8 @@
+{
+  "low_health": {
+    "subtitle": "sounds.afk-health.low_health",
+    "sounds": [
+      "afk-health:low_health"
+    ]
+  }
+}

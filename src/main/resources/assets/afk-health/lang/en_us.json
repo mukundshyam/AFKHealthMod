@@ -1,3 +1,4 @@
 {
-  "item.afk-health.activator": "Activator"
+  "item.afk-health.activator": "Activator",
+  "sounds.afk-health.low_health": "Alert sound"
 }

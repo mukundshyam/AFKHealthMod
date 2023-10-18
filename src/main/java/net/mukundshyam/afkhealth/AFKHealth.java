@@ -3,6 +3,7 @@ package net.mukundshyam.afkhealth;
 import net.fabricmc.api.ModInitializer;
 
 import net.mukundshyam.afkhealth.item.ModItems;
+import net.mukundshyam.afkhealth.sound.ModSounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,7 @@ public class AFKHealth implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		ModItems.registerModItems();
+		ModSounds.registerSounds();
 		LOGGER.info("Hello Fabric world!");
 	}
 }
